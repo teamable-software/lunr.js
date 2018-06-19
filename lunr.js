@@ -1912,7 +1912,8 @@ lunr.Index = function (attrs) {
  * Performs a search against the index using lunr query syntax.
  *
  * Results will be returned sorted by their score, the most relevant results
- * will be returned first.
+ * will be returned first.  For details on how the score is calculated, please see
+ * the {@link https://lunrjs.com/guides/searching.html#scoring|guide}.
  *
  * For more programmatic querying use lunr.Index#query.
  *
@@ -2913,7 +2914,7 @@ lunr.Query.prototype.isNegated = function () {
  */
 lunr.Query.prototype.term = function (term, options) {
   if (Array.isArray(term)) {
-    term.forEach(function (t) { this.term(t, options) }, this)
+    term.forEach(function (t) { this.term(t, lunr.utils.clone(options)) }, this)
     return this
   }
 
